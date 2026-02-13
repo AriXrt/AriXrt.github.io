@@ -1,614 +1,292 @@
 <!DOCTYPE html>
-<html lang="ru" class="scroll-smooth">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Short Film Festival</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
+    <title>Для Лизы от Антона 💌</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #FDF8F0;
-            color: #1a1a1a;
+            min-height: 100vh;
+            background: linear-gradient(145deg, #fbe9f0 0%, #ffdbe8 100%);
+            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
         }
-        .font-montserrat {
-            font-family: 'Montserrat', sans-serif;
+
+        .container {
+            max-width: 700px;
+            width: 100%;
+            background: rgba(255, 245, 250, 0.7);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 70px 70px 50px 50px;
+            box-shadow: 0 25px 40px rgba(220, 100, 140, 0.3),
+                        0 0 0 2px rgba(255, 200, 220, 0.8) inset;
+            padding: 40px 25px 45px 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: all 0.2s;
         }
-        .hero-bg {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('./images/back.jpg');
-            background-size: cover;
-            background-position: center;
+
+        .heart {
+            font-size: 220px;
+            line-height: 1;
+            user-select: none;
+            margin-bottom: 5px;
+            text-shadow: 0 10px 20px rgba(220, 60, 120, 0.4);
+
+            /* градиентная заливка с анимацией */
+            background: linear-gradient(135deg, 
+                #ff6f91, #ff2e5b, #ff99bb, #ff3b5c, #ffb6c1,
+                #ff4f79, #ff8eb5, #ff1e4d, #ffa5c0, #ff6a8a);
+            background-size: 300% 300%;
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+
+            animation: shimmer 5s ease infinite alternate;
         }
-        .btn-primary {
-            background-color: #D53F40; /* red-600 */
-            color: #ffffff;
-            font-weight: 700;
-            padding: 0.75rem 2rem; /* py-3 px-8 */
-            border-radius: 9999px; /* rounded-full */
-            transition: all 300ms ease;
-            display: inline-block;
+
+        @keyframes shimmer {
+            0% { background-position: 0% 0%; }
+            25% { background-position: 40% 30%; }
+            50% { background-position: 80% 70%; }
+            75% { background-position: 20% 90%; }
+            100% { background-position: 70% 20%; }
         }
-        .btn-primary:hover {
-            background-color: #b91c1c; /* red-700 */
-            transform: scale(1.05);
-            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05); /* shadow-lg */
+
+        .greeting {
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: #a13053;
+            background: rgba(255, 235, 245, 0.8);
+            padding: 14px 30px;
+            border-radius: 60px;
+            margin: 15px 0 15px 0;
+            text-align: center;
+            box-shadow: 0 8px 18px rgba(230, 120, 150, 0.3);
+            border: 2px solid #ffb0c3;
+            line-height: 1.3;
+            width: 100%;
         }
-        .section-title {
-            font-weight: 800; /* font-extrabold */
-            font-family: 'Montserrat', sans-serif; /* font-montserrat */
-            margin-bottom: 1rem; /* mb-4 */
-            text-align: center; /* text-center */
-            position: relative; /* relative */
-            padding-bottom: 1rem; /* pb-4 */
-            font-size: 2.25rem; /* text-4xl */
-            line-height: 2.5rem;
-        }
-        @media (min-width: 768px) { /* md */
-            .section-title {
-                font-size: 3rem; /* text-5xl */
-                line-height: 1;
-            }
-        }
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background-color: #D53F40;
-            border-radius: 2px;
-        }
-        .section-container {
-             margin-bottom: 6rem; /* mb-24 */
-        }
-        @media (min-width: 768px) { /* md */
-            .section-container {
-                margin-bottom: 8rem; /* md:mb-32 */
-            }
-        }
-        .faq-item summary::-webkit-details-marker {
-            display: none;
-        }
-        .faq-item summary {
-            position: relative;
-            padding-right: 2.5rem; /* Space for the icon */
-        }
-        .faq-item summary:after {
-            content: '+';
-            position: absolute;
-            right: 1.5rem;
-            top: 50%;
-            transform: translateY(-50%) rotate(0deg);
+
+        .support-phrase {
             font-size: 1.8rem;
-            font-weight: 700;
-            transition: transform 0.3s ease-in-out;
+            font-weight: 500;
+            color: #7d1e3f;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 25px 25px;
+            border-radius: 80px;
+            min-height: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            width: 100%;
+            box-shadow: 0 10px 25px rgba(190, 80, 120, 0.25);
+            border: 2px dashed #ff96b5;
+            line-height: 1.5;
+            word-break: break-word;
+            margin: 10px 0 15px 0;
         }
-        .faq-item[open] summary:after {
-            transform: translateY(-50%) rotate(45deg);
+
+        /* подпись от друга */
+        .from-friend {
+            font-size: 1.7rem;
+            font-weight: 500;
+            color: #b34266;
+            background: rgba(255, 220, 235, 0.7);
+            padding: 12px 35px;
+            border-radius: 50px;
+            text-align: center;
+            backdrop-filter: blur(2px);
+            border: 1px solid #ffa7c0;
+            box-shadow: 0 5px 12px rgba(210, 100, 130, 0.2);
+            margin-top: 10px;
+            letter-spacing: 0.5px;
         }
-        /* Smooth anchor offset for fixed header */
-        section[id] {
-            scroll-margin-top: 80px;
+
+        .hint {
+            margin-top: 25px;
+            font-size: 1.2rem;
+            color: #9f4b67;
+            background: #ffe5ef;
+            padding: 8px 25px;
+            border-radius: 40px;
+            border: 1px solid #ffaebe;
+            opacity: 0.9;
         }
-        /* Hero should account for fixed header height (~64px + spacing) */
-        .hero {
-            min-height: calc(100vh - 64px);
+
+        .container:active {
+            transform: scale(0.99);
+        }
+
+        @media (max-width: 550px) {
+            .heart { font-size: 160px; }
+            .greeting { font-size: 1.8rem; padding: 10px 18px; }
+            .support-phrase { font-size: 1.5rem; padding: 20px 15px; min-height: 120px; }
+            .from-friend { font-size: 1.5rem; padding: 8px 20px; }
+            .hint { font-size: 1rem; }
         }
     </style>
 </head>
-<body class="antialiased">
+<body>
+    <div class="container">
+        <!-- переливающееся сердечко -->
+        <div class="heart" aria-label="сердце">♥</div>
 
-    <!-- Navigation -->
-    <header class="bg-black/80 backdrop-blur-sm fixed top-0 left-0 right-0 z-50">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="flex items-center gap-3">
-                <img src="./images/logo1.jfif" alt="Логотип" class="h-12 w-12 rounded-full object-cover">
-                <span class="text-2xl font-bold text-white font-montserrat" data-i18n="brand">Short Film Festival</span>
-            </a>
-            <nav id="nav-menu" class="hidden md:flex items-center space-x-8">
-                <a href="#about" class="text-gray-300 hover:text-white transition-colors duration-300" data-i18n="nav.about">О фестивале</a>
-                <a href="#rules" class="text-gray-300 hover:text-white transition-colors duration-300" data-i18n="nav.rules">Правила</a>
-                <a href="#apply" class="text-gray-300 hover:text-white transition-colors duration-300" data-i18n="nav.apply">Заявка</a>
-                <a href="#prizes" class="text-gray-300 hover:text-white transition-colors duration-300" data-i18n="nav.prizes">Призы</a>
-                <a href="#faq" class="text-gray-300 hover:text-white transition-colors duration-300" data-i18n="nav.faq">FAQ</a>
-            </nav>
-            <div class="hidden md:flex items-center gap-2">
-                <button class="px-3 py-1 rounded-full text-white hover:bg-white/10 transition" data-lang="ru" aria-label="Русский">🇷🇺 RU</button>
-                <button class="px-3 py-1 rounded-full text-white hover:bg-white/10 transition" data-lang="en" aria-label="English">🇬🇧 EN</button>
-                <button class="px-3 py-1 rounded-full text-white hover:bg-white/10 transition" data-lang="kk" aria-label="Қазақша">🇰🇿 KZ</button>
-            </div>
-            <div class="md:hidden">
-                <!-- Mobile menu button -->
-                <button id="mobile-menu-button" class="text-white focus:outline-none">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-                </button>
-            </div>
-        </div>
-        <!-- Mobile menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-black/90">
-            <a href="#about" class="block text-gray-300 hover:text-white px-6 py-3 transition-colors" data-i18n="nav.about">О фестивале</a>
-            <a href="#rules" class="block text-gray-300 hover:text-white px-6 py-3 transition-colors" data-i18n="nav.rules">Правила</a>
-            <a href="#apply" class="block text-gray-300 hover:text-white px-6 py-3 transition-colors" data-i18n="nav.apply">Заявка</a>
-            <a href="#prizes" class="block text-gray-300 hover:text-white px-6 py-3 transition-colors" data-i18n="nav.prizes">Призы</a>
-            <a href="#faq" class="block text-gray-300 hover:text-white px-6 py-3 transition-colors" data-i18n="nav.faq">FAQ</a>
-            <div class="flex gap-2 px-6 py-3">
-                <button class="px-3 py-1 rounded-full bg-white/10 text-white" data-lang="ru">🇷🇺 RU</button>
-                <button class="px-3 py-1 rounded-full bg-white/10 text-white" data-lang="en">🇬🇧 EN</button>
-                <button class="px-3 py-1 rounded-full bg-white/10 text-white" data-lang="kk">🇰🇿 KZ</button>
-            </div>
-        </div>
-    </header>
+        <!-- обращение к подруге (от друга) -->
+        <h1 class="greeting">С 14 февраля, Лизоьнка! 🌷</h1>
 
-    <!-- Partner Logo Banner -->
-    <section class="bg-white border-b border-gray-200 py-4 mt-16">
-        <div class="container mx-auto px-6">
-            <div class="flex flex-col md:flex-row justify-center items-center gap-8">
-                <div class="flex items-center gap-4">
-                    <span class="text-gray-600 font-semibold">Партнёр:</span>
-                    <a href="https://www.instagram.com/americancorner_astana?igsh=eHk5ZDd2anlyeHox" target="_blank" rel="noopener noreferrer" class="transition-transform hover:scale-105">
-                        <img src="./images/amer.jpg" alt="American Corners Kazakhstan" class="h-16 object-contain">
-                    </a>
-                </div>
-                <div class="flex items-center gap-4">
-                    <span class="text-gray-600 font-semibold">Инфопартнёр:</span>
-                    <a href="https://www.instagram.com/kinohubkz?igsh=cnpnZHM4M2E4b29m" target="_blank" rel="noopener noreferrer" class="transition-transform hover:scale-105">
-                        <img src="./images/kinohub.jpg" alt="KinoHub" class="h-16 object-contain">
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
+        <!-- фраза поддержки (будет меняться) -->
+        <div class="support-phrase" id="supportPhrase">Ты — лучшее, что случилось в моей жизни</div>
 
+        <!-- явная подпись: подарок от друга -->
+        <div class="from-friend">✨ с любовью, твой Антон ✨</div>
 
+        <!-- подсказка про нажатие -->
+        <div class="hint">👆 нажми в любом месте — ещё 99 фраз поддержки</div>
+    </div>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero-bg hero flex items-center justify-center text-white text-center">
-        <div class="px-6" style="text-shadow: 2px 2px 8px rgba(0,0,0,0.7);">
-            <h1 class="text-5xl md:text-7xl lg:text-8xl font-black uppercase font-montserrat tracking-wider" data-i18n="hero.title">Short Film Festival</h1>
-            <p class="mt-4 text-xl md:text-2xl font-light" data-i18n="hero.subtitle">Discovering New Voices in Cinema</p>
-            <p class="mt-8 max-w-3xl mx-auto text-lg md:text-xl text-gray-200 leading-relaxed md:leading-loose">
-                <span data-i18n="hero.description">Фестиваль короткометражного кино, созданный для распространения кинематографии в Казахстане. Это пространство для новых идей, ярких историй и молодых голосов, которые готовы заявить о себе в кино. Онлайн-формат объединяет участников со всей страны и открывает путь к международному обмену.</span>
-            </p>
-            <a href="#apply" class="mt-12 inline-block btn-primary" data-i18n="hero.cta">Подать заявку</a>
-        </div>
-    </section>
-
-    <!-- Main Content -->
-    <main class="container mx-auto px-6 pt-16 md:pt-24 pb-20 md:pb-28">
-
-        <!-- About Section -->
-        <section id="about" class="section-container">
-            <h2 class="section-title text-center mb-12" data-i18n="about.title">О фестивале</h2>
-            <div class="max-w-4xl mx-auto text-center text-lg md:text-xl text-gray-700 leading-relaxed md:leading-loose">
-                <p class="mb-6">
-                    Фестиваль короткометражного кино 2025 организован 
-                    <a href="https://www.instagram.com/a_vision_collective?igsh=MWp2eDJ2cmdrNWo2OQ%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" class="text-red-600 hover:text-red-700 font-semibold">A Vision Collective</a>
-                    в партнёрстве с 
-                    <a href="https://www.instagram.com/americancorner_astana?igsh=eHk5ZDd2anlyeHox" target="_blank" rel="noopener noreferrer" class="text-red-600 hover:text-red-700 font-semibold">American Corner</a>
-                    и при информационной поддержке
-                    <a href="https://www.instagram.com/kinohubkz?igsh=cnpnZHM4M2E4b29m" target="_blank" rel="noopener noreferrer" class="text-red-600 hover:text-red-700 font-semibold">KinoHub</a>.
-                    <span data-i18n="about.mission">Его миссия — поддержка молодых авторов, развитие креативности и популяризация кинематографии в Казахстане.</span>
-                </p>
-                <p>
-                    <span data-i18n="about.body">Фестиваль создаёт платформу для студентов, учеников колледжей и старших классов, где они могут представить свои работы, получить обратную связь и установить международные связи. Мы верим, что именно молодое поколение определяет будущее кино и искусства.</span>
-                </p>
-            </div>
-        </section>
-
-        <!-- Rules Section -->
-        <section id="rules" class="section-container">
-            <h2 class="section-title text-center mb-12" data-i18n="rules.title">Правила участия</h2>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-                <!-- Card 1: Age & Participants -->
-                <div class="bg-white p-8 rounded-2xl shadow-xl border border-gray-200/50 transition-transform duration-300 hover:-translate-y-2">
-                    <h3 class="text-2xl font-bold mb-4" data-i18n="rules.card1.title">Возраст и участники</h3>
-                    <p data-i18n="rules.card1.text">Учащиеся старших классов, студенты колледжей и университетов, а также молодые специалисты (15–30 лет).</p>
-                </div>
-                <!-- Card 2: Film Format -->
-                <div class="bg-white p-8 rounded-2xl shadow-xl border border-gray-200/50 transition-transform duration-300 hover:-translate-y-2">
-                    <h3 class="text-2xl font-bold mb-4" data-i18n="rules.card2.title">Формат фильма</h3>
-                    <ul class="list-disc list-inside space-y-2">
-                        <li data-i18n="rules.card2.item1">Длительность: 5–10 минут.</li>
-                        <li data-i18n="rules.card2.item2">Формат файла: .mp4, .mov (HD или выше).</li>
-                        <li data-i18n="rules.card2.item3">Язык: любой. Рекомендуются субтитры на английском.</li>
-                    </ul>
-                </div>
-                <!-- Card 3: Prohibited -->
-                <div class="bg-white p-8 rounded-2xl shadow-xl border border-gray-200/50 transition-transform duration-300 hover:-translate-y-2 md:col-span-2 lg:col-span-1">
-                    <h3 class="text-2xl font-bold mb-4" data-i18n="rules.card3.title">Запрещено</h3>
-                     <ul class="list-disc list-inside space-y-2 text-red-700">
-                        <li data-i18n="rules.card3.item1">Сцены насилия и жестокости</li>
-                        <li data-i18n="rules.card3.item2">Хорроры и трэш-контент</li>
-                        <li data-i18n="rules.card3.item3">Дискриминация по любым признакам</li>
-                        <li data-i18n="rules.card3.item4">Политическая агитация</li>
-                        <li data-i18n="rules.card3.item5">Религия</li>
-                    </ul>
-                </div>
-                <!-- Card 4: Screening Info -->
-                <div class="bg-white p-8 rounded-2xl shadow-xl border border-gray-200/50 transition-transform duration-300 hover:-translate-y-2">
-                    <h3 class="text-2xl font-bold mb-4" data-i18n="rules.card4.title">Показ фильма</h3>
-                    <p data-i18n="rules.card4.text">Фильм будет показан на мероприятии American Corner.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Themes Section -->
-        <section id="themes" class="section-container">
-            <h2 class="section-title text-center mb-12" data-i18n="themes.title">Темы фильмов</h2>
-            <p class="max-w-3xl mx-auto text-center text-lg md:text-xl text-gray-700 mb-12 -mt-6" data-i18n="themes.lead">Участники могут раскрывать свободные идеи, но мы особенно ждём работы о:</p>
-            <div class="flex flex-wrap justify-center gap-4 max-w-5xl mx-auto">
-                <span class="bg-gray-800 text-white py-2 px-5 rounded-full transition-colors hover:bg-gray-900 cursor-default" data-i18n="themes.theme1">традиции и культура</span>
-                <span class="bg-gray-800 text-white py-2 px-5 rounded-full transition-colors hover:bg-gray-900 cursor-default" data-i18n="themes.theme2">дружба и единство</span>
-                <span class="bg-gray-800 text-white py-2 px-5 rounded-full transition-colors hover:bg-gray-900 cursor-default" data-i18n="themes.theme3">экология</span>
-                <span class="bg-gray-800 text-white py-2 px-5 rounded-full transition-colors hover:bg-gray-900 cursor-default" data-i18n="themes.theme4">технологии и будущее</span>
-                <span class="bg-gray-800 text-white py-2 px-5 rounded-full transition-colors hover:bg-gray-900 cursor-default" data-i18n="themes.theme5">музыка и искусство</span>
-                <span class="bg-gray-800 text-white py-2 px-5 rounded-full transition-colors hover:bg-gray-900 cursor-default" data-i18n="themes.theme6">вдохновение</span>
-                <span class="bg-gray-800 text-white py-2 px-5 rounded-full transition-colors hover:bg-gray-900 cursor-default" data-i18n="themes.theme7">социальные вопросы</span>
-                <span class="bg-gray-800 text-white py-2 px-5 rounded-full transition-colors hover:bg-gray-900 cursor-default" data-i18n="themes.theme8">мечты и самоопределение</span>
-                <span class="bg-gray-800 text-white py-2 px-5 rounded-full transition-colors hover:bg-gray-900 cursor-default" data-i18n="themes.theme9">путешествия</span>
-                <span class="bg-gray-800 text-white py-2 px-5 rounded-full transition-colors hover:bg-gray-900 cursor-default" data-i18n="themes.theme10">сила воображения</span>
-                <span class="bg-red-600 text-white py-2 px-5 rounded-full font-bold transition-colors hover:bg-red-700 cursor-default" data-i18n="themes.theme11">наука</span>
-                <span class="bg-red-600 text-white py-2 px-5 rounded-full font-bold transition-colors hover:bg-red-700 cursor-default" data-i18n="themes.theme12">технология</span>
-                <span class="bg-red-600 text-white py-2 px-5 rounded-full font-bold transition-colors hover:bg-red-700 cursor-default" data-i18n="themes.theme13">инженерия</span>
-                <span class="bg-red-600 text-white py-2 px-5 rounded-full font-bold transition-colors hover:bg-red-700 cursor-default" data-i18n="themes.theme14">математика</span>
-                <span class="bg-red-600 text-white py-2 px-5 rounded-full font-bold transition-colors hover:bg-red-700 cursor-default">AI</span>
-            </div>
-        </section>
-
-        <!-- How to Apply Section -->
-        <section id="apply" class="section-container">
-            <h2 class="section-title text-center mb-12" data-i18n="apply.title">Как подать заявку</h2>
-            <div class="max-w-4xl mx-auto">
-                 <p class="text-center text-lg md:text-xl text-gray-700 mb-8" data-i18n="apply.intro">Заявки принимаются только через онлайн-форму (Google Forms).</p>
-                 <div class="bg-white p-8 md:p-12 rounded-2xl shadow-2xl border border-gray-200/80">
-                     <h3 class="text-2xl font-bold mb-6" data-i18n="apply.form.title">В форме необходимо указать:</h3>
-                     <ul class="grid md:grid-cols-2 gap-x-8 gap-y-4 list-decimal list-inside text-lg">
-                        <li data-i18n="apply.form.item1">Имя и фамилия</li>
-                        <li data-i18n="apply.form.item2">Возраст / учебное заведение</li>
-                        <li data-i18n="apply.form.item3">Название фильма</li>
-                        <li data-i18n="apply.form.item4">Краткое описание (2–3 предложения)</li>
-                        <li data-i18n="apply.form.item5">Контактный e-mail</li>
-                        <li data-i18n="apply.form.item6">Ссылка на фильм (Google Drive / Dropbox)</li>
-                     </ul>
-                     <hr class="my-8 border-gray-200">
-                     <h3 class="text-2xl font-bold mb-6" data-i18n="apply.terms.title">Условия подачи:</h3>
-                     <ul class="space-y-4 text-lg">
-                        <li class="flex items-start"><span class="text-red-500 mr-3 font-bold">✓</span><span data-i18n="apply.terms.item1">Фильм должен быть в формате .mp4 или .mov (HD или выше).</span></li>
-                        <li class="flex items-start"><span class="text-red-500 mr-3 font-bold">✓</span><span data-i18n="apply.terms.item2">Ссылка должна быть доступна без запроса.</span></li>
-                        <li class="flex items-start"><span class="text-red-500 mr-3 font-bold">✓</span><span data-i18n="apply.terms.item3">Один участник может подать только одну работу.</span></li>
-                     </ul>
-                 </div>
-                 <div class="text-center mt-12">
-                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeXY2KD-A5inmFxa_ZCViwZHOqdwVqv--yH3O9SQXyzNJxDlg/viewform?usp=dialog" target="_blank" rel="noopener noreferrer" class="btn-primary text-xl" data-i18n="apply.cta">Перейти к форме заявки</a>
-                 </div>
-            </div>
-        </section>
-
-        <!-- Prizes Section -->
-        <section id="prizes" class="section-container">
-            <h2 class="section-title text-center mb-12" data-i18n="prizes.title">Призы и номинации</h2>
-            <div class="grid md:grid-cols-3 gap-8 text-center max-w-6xl mx-auto">
-                <div class="bg-white p-8 rounded-2xl shadow-xl border border-gray-200/50 transform hover:-translate-y-2 transition-transform duration-300">
-                    <p class="text-6xl mb-4">🥇</p>
-                    <h3 class="text-2xl font-bold">I место</h3>
-                </div>
-                 <div class="bg-white p-8 rounded-2xl shadow-xl border border-gray-200/50 transform hover:-translate-y-2 transition-transform duration-300">
-                    <p class="text-6xl mb-4">🥈</p>
-                    <h3 class="text-2xl font-bold">II место</h3>
-                </div>
-                 <div class="bg-white p-8 rounded-2xl shadow-xl border border-gray-200/50 transform hover:-translate-y-2 transition-transform duration-300">
-                    <p class="text-6xl mb-4">🥉</p>
-                    <h3 class="text-2xl font-bold">III место</h3>
-                </div>
-            </div>
-             <p class="text-center mt-8 text-lg md:text-xl text-gray-700">Победители получают официальные сертификаты с логотипом фестиваля и подписями организаторов.</p>
-            
-            <h3 class="text-3xl font-bold text-center mt-20 mb-10" data-i18n="prizes.specials">Специальные номинации</h3>
-            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-                <div class="bg-gray-800 text-white p-6 rounded-lg text-center transition-colors hover:bg-gray-900 cursor-default">«Best Storytelling»</div>
-                <div class="bg-gray-800 text-white p-6 rounded-lg text-center transition-colors hover:bg-gray-900 cursor-default">«Best Cinematography»</div>
-                <div class="bg-gray-800 text-white p-6 rounded-lg text-center transition-colors hover:bg-gray-900 cursor-default">«Best Editing»</div>
-                <div class="bg-gray-800 text-white p-6 rounded-lg text-center transition-colors hover:bg-gray-900 cursor-default">«Best Sound & Music»</div>
-                <div class="bg-gray-800 text-white p-6 rounded-lg text-center transition-colors hover:bg-gray-900 cursor-default sm:col-span-2 lg:col-span-1 lg:col-start-2">«Best Performance»</div>
-            </div>
-        </section>
-
-        <!-- FAQ Section -->
-        <section id="faq" class="section-container">
-            <h2 class="section-title text-center mb-12" data-i18n="faq.title">Часто задаваемые вопросы</h2>
-            <div class="max-w-4xl mx-auto space-y-4">
-                <details class="faq-item bg-white p-6 rounded-lg shadow-lg border border-gray-200/50 cursor-pointer transition-all duration-300 hover:border-gray-300">
-                    <summary class="font-bold text-xl list-none" data-i18n="faq.q1">Можно ли участвовать в команде?</summary>
-                    <p class="mt-4 text-gray-700 text-lg leading-relaxed" data-i18n="faq.a1">Да, допускается участие индивидуально или командой. В заявке указывайте основного представителя.</p>
-                </details>
-                 <details class="faq-item bg-white p-6 rounded-lg shadow-lg border border-gray-200/50 cursor-pointer transition-all duration-300 hover:border-gray-300">
-                    <summary class="font-bold text-xl list-none" data-i18n="faq.q2">Можно ли снимать на телефон?</summary>
-                    <p class="mt-4 text-gray-700 text-lg leading-relaxed" data-i18n="faq.a2">Да, если качество съёмки и звука достаточно хорошее.</p>
-                </details>
-                 <details class="faq-item bg-white p-6 rounded-lg shadow-lg border border-gray-200/50 cursor-pointer transition-all duration-300 hover:border-gray-300">
-                    <summary class="font-bold text-xl list-none" data-i18n="faq.q3">Сколько заявок можно подать?</summary>
-                    <p class="mt-4 text-gray-700 text-lg leading-relaxed" data-i18n="faq.a3">Один фильм от участника или команды.</p>
-                </details>
-                 <details class="faq-item bg-white p-6 rounded-lg shadow-lg border border-gray-200/50 cursor-pointer transition-all duration-300 hover:border-gray-300">
-                    <summary class="font-bold text-xl list-none" data-i18n="faq.q4">Фильм может быть старым или нужен новый?</summary>
-                    <p class="mt-4 text-gray-700 text-lg leading-relaxed" data-i18n="faq.a4">Допускаются фильмы, снятые ранее, но они не должны быть опубликованы на крупных фестивалях или телеканалах.</p>
-                </details>
-                 <details class="faq-item bg-white p-6 rounded-lg shadow-lg border border-gray-200/50 cursor-pointer transition-all duration-300 hover:border-gray-300">
-                    <summary class="font-bold text-xl list-none" data-i18n="faq.q5">Какие субтитры нужны?</summary>
-                    <p class="mt-4 text-gray-700 text-lg leading-relaxed" data-i18n="faq.a5">Рекомендуются субтитры на английском языке, чтобы фильм был доступен для международной аудитории.</p>
-                </details>
-                 <details class="faq-item bg-white p-6 rounded-lg shadow-lg border border-gray-200/50 cursor-pointer transition-all duration-300 hover:border-gray-300">
-                    <summary class="font-bold text-xl list-none" data-i18n="faq.q6">Есть ли регистрационный взнос?</summary>
-                    <p class="mt-4 text-gray-700 text-lg leading-relaxed" data-i18n="faq.a6">Нет, участие бесплатное.</p>
-                </details>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-white mt-20 md:mt-32">
-        <div class="container mx-auto px-6 py-8 text-center">
-                        <!-- Partners Section -->
-            <div class="mb-6">
-                <p class="font-semibold text-lg mb-4">Партнёры и инфопартнёры:</p>
-                <div class="flex flex-wrap justify-center items-center gap-8">
-                    <a href="https://www.instagram.com/americancorner_astana?igsh=eHk5ZDd2anlyeHox" target="_blank" rel="noopener noreferrer" class="transition-transform hover:scale-105">
-                        <img src="./images/amer.jpg" alt="American Corners Kazakhstan" class="h-16 object-contain bg-white p-2 rounded">
-                    </a>
-                    <a href="https://www.instagram.com/kinohubkz?igsh=cnpnZHM4M2E4b29m" target="_blank" rel="noopener noreferrer" class="transition-transform hover:scale-105">
-                        <img src="./images/kinohub.jpg" alt="KinoHub" class="h-16 object-contain bg-white p-2 rounded">
-                    </a>
-                </div>
-            </div>
-<p class="font-bold text-xl mb-2 font-montserrat" data-i18n="footer.title">Short Film Festival 2025</p>
-            <p data-i18n="footer.copy">&copy; Все права защищены.</p>
-            <!-- Social links can be added here -->
-        </div>
-    </footer>
     <script>
-        const translations = {
-            ru: {
-                brand: 'Short Film Festival',
-                nav: { about: 'О фестивале', rules: 'Правила', apply: 'Заявка', prizes: 'Призы', faq: 'FAQ' },
-                hero: {
-                    title: 'Short Film Festival',
-                    subtitle: 'Открывая новые голоса в кино',
-                    description: 'Фестиваль короткометражного кино, созданный для распространения кинематографии в Казахстане. Это пространство для новых идей, ярких историй и молодых голосов, которые готовы заявить о себе в кино. Онлайн-формат объединяет участников со всей страны и открывает путь к международному обмену.',
-                    cta: 'Подать заявку'
-                },
-                about: {
-                    title: 'О фестивале',
-                    mission: 'Его миссия — поддержка молодых авторов, развитие креативности и популяризация кинематографии в Казахстане.',
-                    body: 'Фестиваль создаёт платформу для студентов, учеников колледжей и старших классов, где они могут представить свои работы, получить обратную связь и установить международные связи. Мы верим, что именно молодое поколение определяет будущее кино и искусства.'
-                },
-                rules: {
-                    title: 'Правила участия',
-                    card1: { title: 'Возраст и участники', text: 'Учащиеся старших классов, студенты колледжей и университетов, а также молодые специалисты (15–30 лет).' },
-                    card2: { title: 'Формат фильма', item1: 'Длительность: 5–10 минут.', item2: 'Формат файла: .mp4, .mov (HD или выше).', item3: 'Язык: любой. Рекомендуются субтитры на английском.' },
-                    card3: { title: 'Запрещено', item1: 'Сцены насилия и жестокости', item2: 'Хорроры и трэш-контент', item3: 'Дискриминация по любым признакам', item4: 'Политическая агитация', item5: 'Религия' },
-                    card4: { title: 'Показ фильма', text: 'Фильм будет показан на мероприятии American Corner.' }
-                },
-                themes: { 
-                    title: 'Темы фильмов', 
-                    lead: 'Участники могут раскрывать свободные идеи, но мы особенно ждём работы о:',
-                    theme1: 'традиции и культура',
-                    theme2: 'дружба и единство',
-                    theme3: 'экология',
-                    theme4: 'технологии и будущее',
-                    theme5: 'музыка и искусство',
-                    theme6: 'вдохновение',
-                    theme7: 'социальные вопросы',
-                    theme8: 'мечты и самоопределение',
-                    theme9: 'путешествия',
-                    theme10: 'сила воображения',
-                    theme11: 'наука',
-                    theme12: 'технология',
-                    theme13: 'инженерия',
-                    theme14: 'математика'
-                },
-                apply: {
-                    title: 'Как подать заявку',
-                    intro: 'Заявки принимаются только через онлайн-форму (Google Forms).',
-                    form: {
-                        title: 'В форме необходимо указать:',
-                        item1: 'Имя и фамилия', item2: 'Возраст / учебное заведение', item3: 'Название фильма', item4: 'Краткое описание (2–3 предложения)', item5: 'Контактный e-mail', item6: 'Ссылка на фильм (Google Drive / Dropbox)'
-                    },
-                    terms: { title: 'Условия подачи:', item1: 'Фильм должен быть в формате .mp4 или .mov (HD или выше).', item2: 'Ссылка должна быть доступна без запроса.', item3: 'Один участник может подать только одну работу.' },
-                    cta: 'Перейти к форме заявки'
-                },
-                prizes: { title: 'Призы и номинации', specials: 'Специальные номинации' },
-                faq: {
-                    title: 'Часто задаваемые вопросы',
-                    q1: 'Можно ли участвовать в команде?', a1: 'Да, допускается участие индивидуально или командой. В заявке указывайте основного представителя.',
-                    q2: 'Можно ли снимать на телефон?', a2: 'Да, если качество съёмки и звука достаточно хорошее.',
-                    q3: 'Сколько заявок можно подать?', a3: 'Один фильм от участника или команды.',
-                    q4: 'Фильм может быть старым или нужен новый?', a4: 'Допускаются фильмы, снятые ранее, но они не должны быть опубликованы на крупных фестивалях или телеканалах.',
-                    q5: 'Какие субтитры нужны?', a5: 'Рекомендуются субтитры на английском языке, чтобы фильм был доступен для международной аудитории.',
-                    q6: 'Есть ли регистрационный взнос?', a6: 'Нет, участие бесплатное.'
-                },
-                footer: { title: 'Short Film Festival 2025', copy: '© Все права защищены.' }
-            },
-            en: {
-                brand: 'Short Film Festival',
-                nav: { about: 'About', rules: 'Rules', apply: 'Apply', prizes: 'Prizes', faq: 'FAQ' },
-                hero: {
-                    title: 'Short Film Festival',
-                    subtitle: 'Discovering New Voices in Cinema',
-                    description: 'A short film festival created to promote cinematography in Kazakhstan. A space for new ideas, vivid stories, and young voices ready to make their mark. The online format unites participants across the country and opens the door to international exchange.',
-                    cta: 'Apply now'
-                },
-                about: {
-                    title: 'About',
-                    mission: 'Its mission is to support young authors, develop creativity, and popularize cinematography in Kazakhstan.',
-                    body: 'The festival provides a platform for students and high schoolers to showcase their work, receive feedback, and build international connections. We believe the young generation shapes the future of cinema and art.'
-                },
-                rules: {
-                    title: 'Participation Rules',
-                    card1: { title: 'Age & Participants', text: 'High school students, college and university students, as well as young professionals (15–30 years old).' },
-                    card2: { title: 'Film Format', item1: 'Duration: 5–10 minutes.', item2: 'File format: .mp4, .mov (HD or higher).', item3: 'Language: any. English subtitles recommended.' },
-                    card3: { title: 'Prohibited', item1: 'Violence and cruelty', item2: 'Horror and trash content', item3: 'Any discrimination', item4: 'Political agitation', item5: 'Religion' },
-                    card4: { title: 'Screening', text: 'The film will be screened at an American Corner event.' }
-                },
-                themes: { 
-                    title: 'Film Themes', 
-                    lead: 'Any ideas are welcome, especially films about:',
-                    theme1: 'traditions and culture',
-                    theme2: 'friendship and unity',
-                    theme3: 'ecology',
-                    theme4: 'technology and future',
-                    theme5: 'music and art',
-                    theme6: 'inspiration',
-                    theme7: 'social issues',
-                    theme8: 'dreams and self-determination',
-                    theme9: 'travel',
-                    theme10: 'power of imagination',
-                    theme11: 'science',
-                    theme12: 'technology',
-                    theme13: 'engineering',
-                    theme14: 'mathematics'
-                },
-                apply: {
-                    title: 'How to Apply',
-                    intro: 'Applications are accepted only via online form (Google Forms).',
-                    form: {
-                        title: 'Please provide in the form:',
-                        item1: 'First and last name', item2: 'Age / educational institution', item3: 'Film title', item4: 'Short synopsis (2–3 sentences)', item5: 'Contact e-mail', item6: 'Link to the film (Google Drive / Dropbox)'
-                    },
-                    terms: { title: 'Submission terms:', item1: 'The film must be .mp4 or .mov (HD or higher).', item2: 'The link must be accessible without request.', item3: 'One submission per participant.' },
-                    cta: 'Go to the application form'
-                },
-                prizes: { title: 'Prizes & Nominations', specials: 'Special Nominations' },
-                faq: {
-                    title: 'Frequently Asked Questions',
-                    q1: 'Can I participate as a team?', a1: 'Yes. Individual and team submissions are allowed. Specify a main contact in the form.',
-                    q2: 'Can I shoot on a phone?', a2: 'Yes, if video and audio quality is sufficient.',
-                    q3: 'How many submissions can I make?', a3: 'One film per participant or team.',
-                    q4: 'Can I submit an older film?', a4: 'Previously shot films are allowed but should not have been published at major festivals or TV channels.',
-                    q5: 'What subtitles are required?', a5: 'English subtitles are recommended for international audience.',
-                    q6: 'Is there a fee?', a6: 'No, participation is free.'
-                },
-                footer: { title: 'Short Film Festival 2025', copy: '© All rights reserved.' }
-            },
-            kk: {
-                brand: 'Short Film Festival',
-                nav: { about: 'Фестиваль туралы', rules: 'Ережелер', apply: 'Өтініш', prizes: 'Сыйлықтар', faq: 'FAQ' },
-                hero: {
-                    title: 'Short Film Festival',
-                    subtitle: 'Кинода жаңа дауыстарды ашу',
-                    description: 'Қазақстандағы кинематографияны дамытуға арналған қысқа метражды фильмдер фестивалі. Жаңа идеялар, әсерлі оқиғалар және өзін көрсетуге дайын жас дауыстар алаңы. Онлайн формат ел бойынша қатысушыларды біріктіреді және халықаралық алмасуға жол ашады.',
-                    cta: 'Өтініш беру'
-                },
-                about: {
-                    title: 'Фестиваль туралы',
-                    mission: 'Миссиясы — жас авторларды қолдау, шығармашылықты дамыту және Қазақстанда кинематографияны ілгерілету.',
-                    body: 'Фестиваль студенттер мен жоғары сынып оқушыларына өз жұмыстарын ұсынуға, пікір алмасуға және халықаралық байланыстар орнатуға мүмкіндік береді. Біз жас буын кино мен өнердің болашағын айқындайды деп сенеміз.'
-                },
-                rules: {
-                    title: 'Қатысу ережелері',
-                    card1: { title: 'Жас мөлшері және қатысушылар', text: 'Жоғары сынып оқушылары, колледж және университет студенттері, сондай-ақ жас мамандар (15–30 жас).' },
-                    card2: { title: 'Фильм форматы', item1: 'Ұзақтығы: 5–10 минут.', item2: 'Файл форматы: .mp4, .mov (HD немесе жоғары).', item3: 'Тілі: кез келген. Ағылшын субтитрлері ұсынылады.' },
-                    card3: { title: 'Тыйым салынады', item1: 'Зорлық-зомбылық көріністері', item2: 'Қорқынышты және орынсыз контент', item3: 'Кез келген дискриминация', item4: 'Саяси үгіт', item5: 'Дін' },
-                    card4: { title: 'Көрсетілім', text: 'Фильм American Corner іс-шарасында көрсетіледі.' }
-                },
-                themes: { 
-                    title: 'Фильм тақырыптары', 
-                    lead: 'Кез келген идея құпталады, әсіресе мыналар туралы:',
-                    theme1: 'дәстүрлер мен мәдениет',
-                    theme2: 'достық пен бірлік',
-                    theme3: 'экология',
-                    theme4: 'технологиялар мен болашақ',
-                    theme5: 'музыка мен өнер',
-                    theme6: 'шабыт',
-                    theme7: 'әлеуметтік мәселелер',
-                    theme8: 'арман мен өзін-өзі анықтау',
-                    theme9: 'саяхат',
-                    theme10: 'қиялдың күші',
-                    theme11: 'ғылым',
-                    theme12: 'технология',
-                    theme13: 'инженерия',
-                    theme14: 'математика'
-                },
-                apply: {
-                    title: 'Қалай өтініш беруге болады',
-                    intro: 'Өтініштер тек онлайн нысан арқылы қабылданады (Google Forms).',
-                    form: {
-                        title: 'Нысанда көрсету қажет:',
-                        item1: 'Аты-жөні', item2: 'Жасы / оқу орны', item3: 'Фильм атауы', item4: 'Қысқаша сипаттама (2–3 сөйлем)', item5: 'Байланыс e-mail', item6: 'Фильм сілтемесі (Google Drive / Dropbox)'
-                    },
-                    terms: { title: 'Жіберу шарттары:', item1: 'Фильм .mp4 немесе .mov форматында (HD немесе жоғары) болуы керек.', item2: 'Сілтеме сұраусыз қолжетімді болуы тиіс.', item3: 'Бір қатысушыдан тек бір жұмыс.' },
-                    cta: 'Өтініш формасына өту'
-                },
-                prizes: { title: 'Сыйлықтар және номинациялар', specials: 'Арнайы номинациялар' },
-                faq: {
-                    title: 'Жиі қойылатын сұрақтар',
-                    q1: 'Команда болып қатысуға бола ма?', a1: 'Иә, жеке немесе командамен қатысуға болады. Негізгі өкілді көрсетіңіз.',
-                    q2: 'Телефонға түсіруге бола ма?', a2: 'Иә, егер бейне және дыбыс сапасы жеткілікті болса.',
-                    q3: 'Қанша өтініш беруге болады?', a3: 'Қатысушы немесе командадан бір фильм.',
-                    q4: 'Ескі фильм жарай ма?', a4: 'Бұрын түсірілген фильмдерге болады, бірақ ірі фестивальдарда немесе телеарналарда жарияланбаған болуы керек.',
-                    q5: 'Қандай субтитрлер қажет?', a5: 'Халықаралық аудитория үшін ағылшын субтитрлері ұсынылады.',
-                    q6: 'Тіркелу ақысы бар ма?', a6: 'Жоқ, қатысу тегін.'
-                },
-                footer: { title: 'Short Film Festival 2025', copy: '© Барлық құқықтар қорғалған.' }
+        (function() {
+            // 100 тёплых фраз для подруги (от друга)
+            const phrases = [
+                "Ты — невероятная!",
+                "Ты — моё вдохновение каждый день.",
+                "С тобой мир становится ярче.",
+                "Твоя улыбка — как солнце после дождя.",
+                "Ты сильнее, чем думаешь!",
+                "Никогда не сомневайся в своей уникальности.",
+                "Ты — чудо, которое случилось в моей жизни.",
+                "С тобой любая беда — не беда.",
+                "Твоя доброта согревает всех вокруг.",
+                "Ты заслуживаешь самого лучшего.",
+                "Ты — как звёздочка: светишь даже в темноте.",
+                "Спасибо, что ты есть у меня.",
+                "Ты — мой талисман удачи.",
+                "Ты невероятно талантлива!",
+                "Твоя поддержка для меня бесценна.",
+                "Ты делаешь этот мир добрее.",
+                "Ты — лучшая подруга на планете!",
+                "С тобой можно быть самой собой.",
+                "Ты — мой личный психолог и антидепрессант.",
+                "Ты — мой источник радости.",
+                "Твоя энергия заражает позитивом.",
+                "Ты — пример стойкости и мудрости.",
+                "Я восхищаюсь твоей силой воли.",
+                "Ты — как маяк: всегда укажешь верный путь.",
+                "Ты красива и внешне, и внутренне.",
+                "Ты — моя опора в трудную минуту.",
+                "С тобой даже молчать комфортно.",
+                "Ты — лучик света в серых буднях.",
+                "Ты — мой главный фанат и критик в одном лице.",
+                "Твоё сердце огромно и чисто.",
+                "Ты — настоящая фея-крёстная.",
+                "Ты умеешь слушать и слышать.",
+                "Ты — моя муза.",
+                "Твоё чувство юмора бесценно.",
+                "Ты — как глоток свежего воздуха.",
+                "Рядом с тобой хочется расти.",
+                "Ты всегда знаешь, какие слова нужны.",
+                "Ты — мой человек в этом мире.",
+                "Ты — моя сестра по духу.",
+                "Ты умеешь радоваться за меня искренне.",
+                "Ты — мой надёжный тыл.",
+                "Ты — мой передовой край.",
+                "Ты — самая заботливая из всех, кого я знаю.",
+                "Ты умеешь создавать уют из ничего.",
+                "Ты — мастерица на все руки.",
+                "Ты — королева своего дела.",
+                "Ты не боишься трудностей, и это круто!",
+                "Ты — мой личный мотиватор.",
+                "Ты — пример того, как надо дружить.",
+                "Ты — как тёплый плед холодным вечером.",
+                "Ты — мой личный праздник.",
+                "Ты — облачко счастья.",
+                "Ты — самая искренняя из всех.",
+                "Ты умеешь прощать и понимать.",
+                "Ты — мой главный советчик.",
+                "Ты — мой компас в жизни.",
+                "Ты — волшебница: всё, к чему прикасаешься, расцветает.",
+                "Ты — моя путеводная звезда.",
+                "Ты — самый верный друг.",
+                "Ты — бриллиант среди камней.",
+                "Ты — мой личный ангел-хранитель.",
+                "Ты — причина моих улыбок.",
+                "Ты — мой антистресс.",
+                "Ты — мой энергетический донор.",
+                "Ты — как кофе по утрам: бодришь и радуешь.",
+                "Ты — мой личный тренер по счастью.",
+                "Ты — самая смешная и самая серьёзная одновременно.",
+                "Ты — мой домашний очаг.",
+                "Ты — мой маленький большой герой.",
+                "Ты — чудо природы.",
+                "Ты — совершенство в моих глазах.",
+                "Ты — мой личный бренд счастья.",
+                "Ты — как радуга после ливня.",
+                "Ты — мой самый дорогой человек.",
+                "Ты — подарок судьбы.",
+                "Ты — мой главный попутчик в путешествии под названием жизнь.",
+                "Ты — невероятно вкусно пахнешь счастьем.",
+                "Ты — мой личный цветок лотоса.",
+                "Ты — моя скала и моя гавань.",
+                "Ты — единственная в своём роде.",
+                "Ты — как любимая песня, которую хочется повторять.",
+                "Ты — мой вечный двигатель.",
+                "Ты — моя лучшая инвестиция.",
+                "Ты — мой главный приз.",
+                "Ты — мой личный тёплый шарф зимой.",
+                "Ты — мой персональный оркестр радости.",
+                "Ты — самая уютная подушка для объятий.",
+                "Ты — мой домашний кинотеатр эмоций.",
+                "Ты — мой личный закат и рассвет.",
+                "Ты — моё утро добрым делаешь.",
+                "Ты — мой сладкий сон, который сбылся.",
+                "Ты — моя живая открытка.",
+                "Ты — мой маленький фейерверк.",
+                "Ты — моё любимое зеркало (в нём я вижу лучшего себя).",
+                "Ты — мой личный психотерапевт с печеньками.",
+                "Ты — моя совесть и мой адвокат.",
+                "Ты — мой самый смелый экспериментатор.",
+                "Ты — как интернет: без тебя никуда.",
+                "Ты — мой личный зарядник (подзаряжаюсь от тебя).",
+                "Ты — мой вечный двигатель добра.",
+                "Ты — моя живая вода.",
+                "Ты — мой эликсир молодости.",
+                "Ты — просто чудо, и точка!"
+            ];
+
+            // элемент для отображения фразы
+            const phraseElement = document.getElementById('supportPhrase');
+
+            // функция выбора случайной фразы
+            function getRandomPhrase() {
+                return phrases[Math.floor(Math.random() * phrases.length)];
             }
-        };
 
-        function setLanguage(lang) {
-            const dict = translations[lang] || translations.ru;
-            const nodes = document.querySelectorAll('[data-i18n]');
-            nodes.forEach(node => {
-                const key = node.getAttribute('data-i18n');
-                const parts = key.split('.');
-                let value = dict;
-                for (const p of parts) {
-                    value = value && value[p];
-                }
-                if (typeof value === 'string') {
-                    node.textContent = value;
-                }
+            // обработчик клика по документу
+            document.addEventListener('click', function() {
+                phraseElement.textContent = getRandomPhrase();
+                // маленький эффект нажатия
+                phraseElement.style.transform = 'scale(1.02)';
+                setTimeout(() => phraseElement.style.transform = 'scale(1)', 100);
             });
-            localStorage.setItem('lang', lang);
-            // Update active button styles
-            document.querySelectorAll('[data-lang]').forEach(btn => {
-                if (btn.getAttribute('data-lang') === lang) {
-                    btn.classList.add('bg-white/20');
-                } else {
-                    btn.classList.remove('bg-white/20');
-                }
-            });
-        }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const saved = localStorage.getItem('lang') || 'ru';
-            setLanguage(saved);
-            document.querySelectorAll('[data-lang]').forEach(btn => {
-                btn.addEventListener('click', () => setLanguage(btn.getAttribute('data-lang')));
-            });
-        });
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const navLinks = mobileMenu.querySelectorAll('a');
-
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-        
-        // Close menu when a link is clicked
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-            });
-        });
+            // при загрузке тоже ставим случайную фразу (чтобы не повторялась всегда первая)
+            phraseElement.textContent = getRandomPhrase();
+        })();
     </script>
 </body>
 </html>
-
-
-
