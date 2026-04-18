@@ -1,288 +1,755 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Для Лизы от Антона 💌</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>error.exe</title>
     <style>
+        /* СТИЛЬ НУЛЕВЫХ — ГРЯЗНО, КРОВАВО, БЕЗ НЕОНА */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            cursor: crosshair;
         }
-
         body {
-            min-height: 100vh;
-            background: linear-gradient(145deg, #fbe9f0 0%, #ffdbe8 100%);
-            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 16px;
-            cursor: pointer;
-            transition: background 0.3s ease;
+            background: #000000;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+            font-family: 'Courier New', 'MS Gothic', monospace;
+            font-size: 14px;
         }
-
-        .container {
-            max-width: 700px;
+        /* Маскировка (приманка) — простой серый блок */
+        .mask-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            background: rgba(255, 245, 250, 0.7);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border-radius: 70px 70px 50px 50px;
-            box-shadow: 0 25px 40px rgba(220, 100, 140, 0.3),
-                        0 0 0 2px rgba(255, 200, 220, 0.8) inset;
-            padding: 40px 25px 45px 25px;
+            height: 100%;
+            background: #0a0a0a;
             display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 200;
+        }
+        .trap-card {
+            background: #111111;
+            border: 2px solid #660000;
+            padding: 35px 28px;
+            max-width: 460px;
+            text-align: center;
+            box-shadow: 8px 8px 0px #2a0000;
+        }
+        .trap-card h2 {
+            color: #aa2222;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+            font-weight: normal;
+            text-transform: uppercase;
+        }
+        .trap-card p {
+            color: #884444;
+            margin: 15px 0;
+        }
+        .fake-btn {
+            background: #220000;
+            border: 1px solid #aa2222;
+            margin-top: 28px;
+            padding: 12px 28px;
+            display: inline-block;
+            color: #cc6666;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            font-family: monospace;
+        }
+        /* Хоррор-слой — чёрный, без гламура */
+        .horror-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000000;
+            z-index: 1000;
+            display: none;
             flex-direction: column;
             align-items: center;
-            transition: all 0.2s;
+            justify-content: center;
+            overflow: hidden;
         }
-
-        .heart {
-            font-size: 220px;
-            line-height: 1;
-            user-select: none;
-            margin-bottom: 5px;
-            text-shadow: 0 10px 20px rgba(220, 60, 120, 0.4);
-
-            /* градиентная заливка с анимацией */
-            background: linear-gradient(135deg, 
-                #ff6f91, #ff2e5b, #ff99bb, #ff3b5c, #ffb6c1,
-                #ff4f79, #ff8eb5, #ff1e4d, #ffa5c0, #ff6a8a);
-            background-size: 300% 300%;
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-
-            animation: shimmer 5s ease infinite alternate;
-        }
-
-        @keyframes shimmer {
-            0% { background-position: 0% 0%; }
-            25% { background-position: 40% 30%; }
-            50% { background-position: 80% 70%; }
-            75% { background-position: 20% 90%; }
-            100% { background-position: 70% 20%; }
-        }
-
-        .greeting {
-            font-size: 2.2rem;
-            font-weight: 600;
-            color: #a13053;
-            background: rgba(255, 235, 245, 0.8);
-            padding: 14px 30px;
-            border-radius: 60px;
-            margin: 15px 0 15px 0;
-            text-align: center;
-            box-shadow: 0 8px 18px rgba(230, 120, 150, 0.3);
-            border: 2px solid #ffb0c3;
-            line-height: 1.3;
+        /* Кровавая текстура — просто красные полосы */
+        .blood-overlay {
+            position: absolute;
             width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(0deg, #1a0000 0px, #1a0000 2px, #3a0000 2px, #3a0000 5px);
+            opacity: 0.6;
+            pointer-events: none;
+            z-index: 10;
         }
-
-        .support-phrase {
-            font-size: 1.8rem;
-            font-weight: 500;
-            color: #7d1e3f;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 25px 25px;
-            border-radius: 80px;
-            min-height: 140px;
+        .glitch-lines {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(0deg, rgba(255,0,0,0.2) 0px, transparent 1px, transparent 2px);
+            pointer-events: none;
+            z-index: 11;
+            animation: scan 0.08s infinite linear;
+        }
+        @keyframes scan {
+            0% { transform: translateY(0);}
+            100% { transform: translateY(4px);}
+        }
+        /* Контейнер для плавающих картинок */
+        .floating-images {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 15;
+        }
+        .floating-img {
+            position: absolute;
+            pointer-events: none;
+            filter: brightness(0.8) contrast(1.2);
+            opacity: 0.7;
+            will-change: transform;
+        }
+        /* Центральная картинка вместо канваса */
+        .center-image {
+            width: 320px;
+            height: 320px;
+            object-fit: cover;
+            border: 3px solid #550000;
+            background: #000;
+            z-index: 20;
+            margin-bottom: 20px;
+        }
+        .scream-text {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #aa2222;
+            background: #000000aa;
+            padding: 8px 24px;
+            margin-bottom: 30px;
+            border: 1px solid #880000;
+            animation: shakeText 0.1s infinite;
+            z-index: 20;
+            font-family: monospace;
+        }
+        @keyframes shakeText {
+            0% { transform: translate(1px,1px);}
+            50% { transform: translate(-1px,-1px);}
+            100% { transform: translate(1px,-1px);}
+        }
+        .escape-panel {
+            background: #0a0000dd;
+            border: 2px solid #770000;
+            padding: 20px 24px;
+            width: 360px;
+            text-align: center;
+            z-index: 25;
+        }
+        .code-input {
+            background: #110000;
+            border: 1px solid #990000;
+            color: #cc8866;
+            padding: 10px;
+            width: 100%;
+            font-family: monospace;
+            font-size: 1.2rem;
+            text-align: center;
+            outline: none;
+        }
+        .submit-exit {
+            background: #330000;
+            margin-top: 16px;
+            padding: 8px;
+            width: 100%;
+            border: 1px solid #aa2222;
+            color: #dd8888;
+            font-weight: bold;
+            cursor: pointer;
+            font-family: monospace;
+        }
+        .fake-exit {
+            background: #1a0000;
+            margin-top: 12px;
+            padding: 4px;
+            font-size: 0.7rem;
+            color: #884444;
+            cursor: pointer;
+            display: inline-block;
+            padding: 4px 12px;
+            border: 1px solid #550000;
+        }
+        .counter {
+            font-size: 0.7rem;
+            margin-top: 16px;
+            color: #994444;
+        }
+        /* Ритуальный круг — без теней, просто линии */
+        .ritual-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000000;
+            z-index: 2000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .ritual-circle {
+            width: 260px;
+            height: 260px;
+            border-radius: 50%;
+            border: 2px solid #aa2222;
+            background: #050000;
+            position: relative;
+        }
+        .drag-cross {
+            width: 50px;
+            height: 50px;
+            background: #660000;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            cursor: grab;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 32px;
+            color: white;
+            font-weight: bold;
+            border: 1px solid #aa0000;
+        }
+        .ritual-text {
+            color: #aa5555;
+            margin-top: 24px;
+            font-size: 1rem;
             text-align: center;
-            width: 100%;
-            box-shadow: 0 10px 25px rgba(190, 80, 120, 0.25);
-            border: 2px dashed #ff96b5;
-            line-height: 1.5;
-            word-break: break-word;
-            margin: 10px 0 15px 0;
         }
-
-        /* подпись от друга */
-        .from-friend {
-            font-size: 1.7rem;
-            font-weight: 500;
-            color: #b34266;
-            background: rgba(255, 220, 235, 0.7);
-            padding: 12px 35px;
-            border-radius: 50px;
-            text-align: center;
-            backdrop-filter: blur(2px);
-            border: 1px solid #ffa7c0;
-            box-shadow: 0 5px 12px rgba(210, 100, 130, 0.2);
-            margin-top: 10px;
-            letter-spacing: 0.5px;
-        }
-
-        .hint {
-            margin-top: 25px;
-            font-size: 1.2rem;
-            color: #9f4b67;
-            background: #ffe5ef;
-            padding: 8px 25px;
-            border-radius: 40px;
-            border: 1px solid #ffaebe;
-            opacity: 0.9;
-        }
-
-        .container:active {
-            transform: scale(0.99);
-        }
-
-        @media (max-width: 550px) {
-            .heart { font-size: 160px; }
-            .greeting { font-size: 1.8rem; padding: 10px 18px; }
-            .support-phrase { font-size: 1.5rem; padding: 20px 15px; min-height: 120px; }
-            .from-friend { font-size: 1.5rem; padding: 8px 20px; }
-            .hint { font-size: 1rem; }
+        /* Никаких неоновых обводок, всё грубо */
+        a, button, div {
+            text-decoration: none;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- переливающееся сердечко -->
-        <div class="heart" aria-label="сердце">♥</div>
 
-        <!-- обращение к подруге (от друга) -->
-        <h1 class="greeting">С 14 февраля, Лизоьнка! 🌷</h1>
-
-        <!-- фраза поддержки (будет меняться) -->
-        <div class="support-phrase" id="supportPhrase">Ты — лучшее, что случилось в моей жизни</div>
-
-        <!-- явная подпись: подарок от друга -->
-        <div class="from-friend">✨ с уважением, твой друн Антон ✨</div>
-
-        <!-- подсказка про нажатие -->
-        <div class="hint">👆 нажми и смотри ещё 99 милых фраз!!!!!!!!</div>
+<!-- МАСКИРОВКА -->
+<div class="mask-layer" id="maskLayer">
+    <div class="trap-card" id="trapTrigger">
+        <h2>!!! СИСТЕМНАЯ ОШИБКА !!!</h2>
+        <p>⚠️ 不正アクセスを検出 ⚠️<br>アカウントは5分後にロックされます</p>
+        <div class="fake-btn" id="verifyBtn">>> 本人確認 <<</div>
+        <div style="font-size:0.6rem; margin-top:12px;">* Steamセキュリティ</div>
     </div>
+</div>
 
-    <script>
-        (function() {
-            // 100 тёплых фраз для подруги (от друга)
-            const phrases = [
-                "Ты — невероятная!",
-                "Ты — моё вдохновение каждый день.",
-                "С тобой мир становится ярче.",
-                "Твоя улыбка — как солнце после дождя.",
-                "Ты сильнее, чем думаешь!",
-                "Никогда не сомневайся в своей уникальности.",
-                "Ты — чудо, которое случилось в моей жизни.",
-                "С тобой любая беда — не беда.",
-                "Твоя доброта согревает всех вокруг.",
-                "Ты заслуживаешь самого лучшего.",
-                "Ты — как звёздочка: светишь даже в темноте.",
-                "Спасибо, что ты есть у меня.",
-                "Ты — мой талисман удачи.",
-                "Ты невероятно талантлива!",
-                "Твоя поддержка для меня бесценна.",
-                "Ты делаешь этот мир добрее.",
-                "Ты — лучшая подруга на планете!",
-                "С тобой можно быть самой собой.",
-                "Ты — мой личный антидепрессант.",
-                "Ты — мой источник радости.",
-                "Твоя энергия заражает позитивом.",
-                "Ты — пример стойкости и мудрости.",
-                "Я восхищаюсь твоей силой воли.",
-                "Ты — как маяк: всегда укажешь верный путь.",
-                "Ты красива и внешне, и внутренне.",
-                "Ты — моя опора в трудную минуту.",
-                "С тобой даже молчать комфортно.",
-                "Ты — лучик света в серых буднях.",
-                "Ты — мой главный фанат и критик в одном лице.",
-                "Твоё сердце огромно и чисто.",
-                "Ты умеешь слушать и слышать.",
-                "Ты — моя муза.",
-                "Твоё чувство юмора бесценно.",
-                "Ты — как глоток свежего воздуха.",
-                "Рядом с тобой хочется расти.",
-                "Ты всегда знаешь, какие слова нужны.",
-                "Ты — мой человек в этом мире.",
-                "Ты — моя сестра по духу.",
-                "Ты умеешь радоваться за меня искренне.",
-                "Ты — мой надёжный тыл.",
-                "Ты — мой передовой край.",
-                "Ты — самая заботливая из всех, кого я знаю.",
-                "Ты умеешь создавать уют из ничего.",
-                "Ты — мастерица на все руки.",
-                "Ты — королева своего дела.",
-                "Ты не боишься трудностей, и это круто!",
-                "Ты — мой личный мотиватор.",
-                "Ты — пример того, как надо дружить.",
-                "Ты — как тёплый плед холодным вечером.",
-                "Ты — мой личный праздник.",
-                "Ты — облачко счастья.",
-                "Ты — самая искренняя из всех.",
-                "Ты умеешь прощать и понимать.",
-                "Ты — мой главный советчик.",
-                "Ты — мой компас в жизни.",
-                "Ты — волшебница: всё, к чему прикасаешься, расцветает.",
-                "Ты — моя путеводная звезда.",
-                "Ты — самый верный друг.",
-                "Ты — бриллиант среди камней.",
-                "Ты — мой личный ангел-хранитель.",
-                "Ты — причина моих улыбок.",
-                "Ты — мой антистресс.",
-                "Ты — мой энергетический донор.",
-                "Ты — как кофе по утрам: бодришь и радуешь.",
-                "Ты — мой личный тренер по счастью.",
-                "Ты — самая смешная и самая серьёзная одновременно.",
-                "Ты — мой маленький большой герой.",
-                "Ты — чудо природы.",
-                "Ты — совершенство в моих глазах.",
-                "Ты — мой личный бренд счастья.",
-                "Ты — как радуга после ливня.",
-                "Ты — подарок судьбы.",
-                "Ты — невероятно вкусно пахнешь счастьем.",
-                "Ты — мой личный цветок лотоса.",
-                "Ты — моя скала и моя гавань.",
-                "Ты — единственная в своём роде.",
-                "Ты — как любимая песня, которую хочется повторять.",
-                "Ты — мой вечный двигатель.",
-                "Ты — моя лучшая инвестиция.",
-                "Ты — мой главный приз.",
-                "Ты — мой личный тёплый шарф зимой.",
-                "Ты — мой персональный оркестр радости.",
-                "Ты — самая уютная подушка для объятий.",
-                "Ты — мой домашний кинотеатр эмоций.",
-                "Ты — мой личный закат и рассвет.",
-                "Ты — моё утро добрым делаешь.",
-                "Ты — мой сладкий сон, который сбылся.",
-                "Ты — моя живая открытка.",
-                "Ты — мой маленький фейерверк.",
-                "Ты — моё любимое зеркало (в нём я вижу лучшего себя).",
-                "Ты — мой личный психотерапевт с печеньками.",
-                "Ты — моя совесть и мой адвокат.",
-                "Ты — мой самый смелый экспериментатор.",
-                "Ты — как интернет: без тебя никуда.",
-                "Ты — мой личный зарядник (подзаряжаюсь от тебя).",
-                "Ты — мой вечный двигатель добра.",
-                "Ты — моя живая вода.",
-                "Ты — мой эликсир молодости.",
-                "Ты — просто чудо, и точка!"
-            ];
+<!-- ХОРРОР-СЛОЙ -->
+<div class="horror-layer" id="horrorLayer">
+    <div class="blood-overlay"></div>
+    <div class="glitch-lines"></div>
+    <!-- Контейнер для плавающих картинок -->
+    <div class="floating-images" id="floatingContainer"></div>
+    <!-- Центральная картинка general.webp -->
+    <img class="center-image" id="centerImg" src="general.jpg" alt="general" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'320\' height=\'320\' viewBox=\'0 0 100 100\'%3E%3Crect width=\'100\' height=\'100\' fill=\'%23110000\'/%3E%3Ctext x=\'50\' y=\'55\' font-size=\'12\' fill=\'%23882222\' text-anchor=\'middle\'%3Egeneral.webp%3C/text%3E%3C/svg%3E';">
+    <div class="scream-text" id="screamText">地獄に堕ちた</div>
+    <div class="escape-panel">
+        <p>👁️ <strong>解放の儀式</strong> 👁️<br>聖なる言葉を入力</p>
+        <input type="text" class="code-input" id="codeInput" placeholder="[ コード ]" autocomplete="off">
+        <button class="submit-exit" id="submitExitBtn">🔻 終焉を呼ぶ 🔻</button>
+        <div class="fake-exit" id="fakeCloseBtn">[ X ] 臆病者ボタン</div>
+        <div class="counter" id="counterMsg">残り試行: 3</div>
+    </div>
+</div>
 
-            // элемент для отображения фразы
-            const phraseElement = document.getElementById('supportPhrase');
+<!-- РИТУАЛЬНЫЙ КРУГ -->
+<div class="ritual-overlay" id="ritualOverlay">
+    <div class="ritual-circle" id="ritualCircle">
+        <div class="drag-cross" id="dragCross">✝️</div>
+    </div>
+    <div class="ritual-text" id="ritualText">十字架を円の中にドラッグして呪いを解け</div>
+</div>
 
-            // функция выбора случайной фразы
-            function getRandomPhrase() {
-                return phrases[Math.floor(Math.random() * phrases.length)];
+<script>
+    (function(){
+        // ========== НАСТРОЙКИ ВНЕШНИХ ФАЙЛОВ ==========
+        const CONFIG = {
+            backgroundImages: ["horror1.webp", "horror2.gif", "horror3.gif"], // до 3 картинок
+            ambientMusic: "sound.mp3",   // фоновая музыка
+            screamSound: "scream.mp3"    // звук крика (зациклен)
+        };
+        // ==============================================
+        
+        const PASSCODE = "解放";   // кодовое слово (японские иероглифы)
+        let horrorActive = false;
+        let attemptsLeft = 3;
+        let audioCtx = null;
+        let screamInterval = null;
+        let shakeInterval = null;
+        let glitchInterval = null;
+        let floatingAnimFrame = null;
+        let centerShakeInterval = null;
+        let ambientAudio = null;
+        let loopedScreamAudio = null;
+        let floatingImages = []; // массив объектов {img, x, y, vx, vy, rot, rotSpeed, size, shake}
+        
+        // DOM
+        const maskLayer = document.getElementById('maskLayer');
+        const horrorLayer = document.getElementById('horrorLayer');
+        const verifyBtn = document.getElementById('verifyBtn');
+        const trapTrigger = document.getElementById('trapTrigger');
+        const submitBtn = document.getElementById('submitExitBtn');
+        const codeInput = document.getElementById('codeInput');
+        const fakeClose = document.getElementById('fakeCloseBtn');
+        const counterSpan = document.getElementById('counterMsg');
+        const ritualOverlay = document.getElementById('ritualOverlay');
+        const dragCross = document.getElementById('dragCross');
+        const ritualCircle = document.getElementById('ritualCircle');
+        const floatingContainer = document.getElementById('floatingContainer');
+        const centerImg = document.getElementById('centerImg');
+        
+        // ========== ТРЯСКА ЦЕНТРАЛЬНОЙ КАРТИНКИ ==========
+        function startCenterImageShake() {
+            if (centerShakeInterval) clearInterval(centerShakeInterval);
+            centerShakeInterval = setInterval(() => {
+                if (!horrorActive) return;
+                const x = (Math.random() - 0.5) * 6;
+                const y = (Math.random() - 0.5) * 6;
+                const rot = (Math.random() - 0.5) * 4;
+                centerImg.style.transform = `translate(${x}px, ${y}px) rotate(${rot}deg)`;
+                setTimeout(() => {
+                    if (horrorActive) centerImg.style.transform = '';
+                }, 60);
+            }, 45);
+        }
+        
+        function stopCenterImageShake() {
+            if (centerShakeInterval) clearInterval(centerShakeInterval);
+            centerImg.style.transform = '';
+        }
+        
+        // ========== СОЗДАНИЕ ПЛАВАЮЩИХ КАРТИНОК ==========
+        function createFloatingImages() {
+            const validImages = CONFIG.backgroundImages.filter(name => name && name.trim() !== "");
+            if (validImages.length === 0) return;
+            
+            const imageCount = 35; // 35 картинок, чтобы заполнить экран
+            for (let i = 0; i < imageCount; i++) {
+                const src = validImages[i % validImages.length];
+                const img = document.createElement('img');
+                img.src = src;
+                img.className = 'floating-img';
+                // случайный размер от 60 до 220 пикселей
+                const size = 60 + Math.random() * 160;
+                img.style.width = size + 'px';
+                img.style.height = 'auto';
+                // случайная начальная позиция
+                const x = Math.random() * (window.innerWidth - size);
+                const y = Math.random() * (window.innerHeight - size);
+                img.style.left = x + 'px';
+                img.style.top = y + 'px';
+                // случайная скорость движения (пикселей в секунду, ~60fps)
+                const vx = (Math.random() - 0.5) * 120;
+                const vy = (Math.random() - 0.5) * 120;
+                const rot = Math.random() * 360;
+                const rotSpeed = (Math.random() - 0.5) * 90;
+                floatingContainer.appendChild(img);
+                floatingImages.push({
+                    img: img,
+                    x: x, y: y,
+                    vx: vx, vy: vy,
+                    rot: rot,
+                    rotSpeed: rotSpeed,
+                    width: size,
+                    height: size,
+                    shakeX: 0, shakeY: 0
+                });
             }
-
-            // обработчик клика по документу
-            document.addEventListener('click', function() {
-                phraseElement.textContent = getRandomPhrase();
-                // маленький эффект нажатия
-                phraseElement.style.transform = 'scale(1.02)';
-                setTimeout(() => phraseElement.style.transform = 'scale(1)', 100);
+        }
+        
+        // Анимация плавающих картинок (движение + тряска)
+        let lastTimestamp = 0;
+        function animateFloating(now) {
+            if (!horrorActive) return;
+            if (!lastTimestamp) lastTimestamp = now;
+            let dt = Math.min(0.05, (now - lastTimestamp) / 1000);
+            if (dt <= 0) {
+                requestAnimationFrame(animateFloating);
+                return;
+            }
+            lastTimestamp = now;
+            
+            const winW = window.innerWidth;
+            const winH = window.innerHeight;
+            
+            for (let obj of floatingImages) {
+                // движение
+                obj.x += obj.vx * dt;
+                obj.y += obj.vy * dt;
+                // отскок от границ с учётом размера
+                if (obj.x < 0) { obj.x = 0; obj.vx = -obj.vx; }
+                if (obj.x + obj.width > winW) { obj.x = winW - obj.width; obj.vx = -obj.vx; }
+                if (obj.y < 0) { obj.y = 0; obj.vy = -obj.vy; }
+                if (obj.y + obj.height > winH) { obj.y = winH - obj.height; obj.vy = -obj.vy; }
+                
+                // тряска (случайные смещения, создающие эффект дрожания)
+                obj.shakeX = (Math.random() - 0.5) * 4;
+                obj.shakeY = (Math.random() - 0.5) * 4;
+                
+                // вращение
+                obj.rot += obj.rotSpeed * dt;
+                if (obj.rot > 360) obj.rot -= 360;
+                
+                // применяем transform: смещение + тряска + вращение
+                const transform = `translate(${obj.x + obj.shakeX}px, ${obj.y + obj.shakeY}px) rotate(${obj.rot}deg)`;
+                obj.img.style.transform = transform;
+            }
+            floatingAnimFrame = requestAnimationFrame(animateFloating);
+        }
+        
+        function stopFloatingAnimation() {
+            if (floatingAnimFrame) cancelAnimationFrame(floatingAnimFrame);
+            floatingAnimFrame = null;
+            while (floatingContainer.firstChild) floatingContainer.removeChild(floatingContainer.firstChild);
+            floatingImages = [];
+        }
+        
+        // ========== ЗАЦИКЛЕННЫЙ КРИК (бесконечное повторение) ==========
+        function startLoopedScream() {
+            if (!CONFIG.screamSound || CONFIG.screamSound === "") return;
+            try {
+                loopedScreamAudio = new Audio(CONFIG.screamSound);
+                loopedScreamAudio.loop = true;
+                loopedScreamAudio.volume = 1.0;   // МАКСИМУМ
+                loopedScreamAudio.play().catch(e => console.warn("Крик не зациклился:", e));
+            } catch(e) { console.warn(e); }
+        }
+        
+        function stopLoopedScream() {
+            if (loopedScreamAudio) {
+                loopedScreamAudio.pause();
+                loopedScreamAudio = null;
+            }
+        }
+        
+        // ========== ФОНОВАЯ МУЗЫКА (ГРОМКОСТЬ НА МАКСИМУМ) ==========
+        function playAmbientMusic() {
+            if (!CONFIG.ambientMusic || CONFIG.ambientMusic === "") return;
+            ambientAudio = new Audio(CONFIG.ambientMusic);
+            ambientAudio.loop = true;
+            ambientAudio.volume = 1.0;   // МАКСИМУМ
+            ambientAudio.play().catch(e => console.warn("Музыка не играет:", e));
+        }
+        function stopAmbientMusic() {
+            if (ambientAudio) {
+                ambientAudio.pause();
+                ambientAudio = null;
+            }
+        }
+        
+        // ========== ДОП. ЗВУКИ (Web Audio) ==========
+        function playHellSound(type) {
+            if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            audioCtx.resume();
+            const now = audioCtx.currentTime;
+            const gain = audioCtx.createGain();
+            gain.gain.setValueAtTime(0.6, now);
+            gain.gain.exponentialRampToValueAtTime(0.001, now+1.8);
+            gain.connect(audioCtx.destination);
+            const osc = audioCtx.createOscillator();
+            if(type === 'scream') {
+                osc.type = 'sawtooth';
+                osc.frequency.value = 700;
+                osc.frequency.exponentialRampToValueAtTime(120, now+0.8);
+                osc.connect(gain);
+                osc.start();
+                osc.stop(now+1.3);
+            } else if(type === 'cry') {
+                osc.type = 'triangle';
+                osc.frequency.value = 400;
+                osc.frequency.exponentialRampToValueAtTime(200, now+0.7);
+                osc.connect(gain);
+                osc.start();
+                osc.stop(now+1.2);
+            } else {
+                const noise = audioCtx.createScriptProcessor(1024,1,1);
+                noise.onaudioprocess = (e) => {
+                    const out = e.outputBuffer.getChannelData(0);
+                    for(let i=0;i<out.length;i++) out[i] = (Math.random()*2-1)*0.5;
+                };
+                noise.connect(gain);
+                setTimeout(()=>noise.disconnect(), 1200);
+            }
+        }
+        
+        function startRandomScreams() {
+            if(screamInterval) clearInterval(screamInterval);
+            screamInterval = setInterval(() => {
+                if(!horrorActive) return;
+                const r = Math.random();
+                if(r<0.4) playHellSound('scream');
+                else if(r<0.7) playHellSound('cry');
+                else playHellSound('whisper');
+            }, 1800);
+        }
+        
+        // ========== ТРЯСКА ЭКРАНА ==========
+        function startScreenShake() {
+            if(shakeInterval) clearInterval(shakeInterval);
+            shakeInterval = setInterval(() => {
+                if(!horrorActive) return;
+                const x = (Math.random() - 0.5) * 12;
+                const y = (Math.random() - 0.5) * 12;
+                horrorLayer.style.transform = `translate(${x}px, ${y}px)`;
+                setTimeout(() => { if(horrorActive) horrorLayer.style.transform = ''; }, 50);
+            }, 35);
+        }
+        
+        // ========== ГЛИТЧ-СИМВОЛЫ ==========
+        function startGlitchSymbols() {
+            const div = document.createElement('div');
+            div.style.position = 'fixed';
+            div.style.bottom = '5px';
+            div.style.left = '5px';
+            div.style.color = '#440000';
+            div.style.fontSize = '10px';
+            div.style.fontFamily = 'monospace';
+            div.style.background = '#000000aa';
+            div.style.padding = '3px';
+            div.style.zIndex = 30;
+            div.style.pointerEvents = 'none';
+            document.body.appendChild(div);
+            glitchInterval = setInterval(() => {
+                if(!horrorActive) return;
+                let s = '';
+                for(let i=0;i<50;i++) s += String.fromCharCode(0x0300 + Math.floor(Math.random()*80)) + '҉';
+                div.innerText = 'Ŧ' + s.substring(0, 150);
+            }, 120);
+        }
+        
+        // ========== ЗАПУСК АДА ==========
+        function launchHorror() {
+            if(horrorActive) return;
+            horrorActive = true;
+            maskLayer.style.display = 'none';
+            horrorLayer.style.display = 'flex';
+            document.documentElement.requestFullscreen().catch(e=>{});
+            
+            // ЗВУКИ (МАКСИМАЛЬНАЯ ГРОМКОСТЬ)
+            startLoopedScream();
+            playAmbientMusic();
+            
+            // ПЛАВАЮЩИЕ КАРТИНКИ
+            createFloatingImages();
+            lastTimestamp = 0;
+            animateFloating();
+            
+            // ТРЯСКА ЦЕНТРАЛЬНОЙ КАРТИНКИ
+            startCenterImageShake();
+            
+            // ОСТАЛЬНЫЕ ЭФФЕКТЫ
+            startRandomScreams();
+            startScreenShake();
+            startGlitchSymbols();
+            
+            // БЛОКИРОВКА КЛАВИШ
+            const blockKeys = (e) => {
+                if(!horrorActive) return;
+                const key = e.key;
+                if(key === 'Escape' || key === 'F11' || key === 'F5' || 
+                   (e.ctrlKey && (key === 'w' || key === 'r' || key === 'W' || key === 'R')) ||
+                   (e.altKey && key === 'F4') || key === 'F5') {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    if(!document.fullscreenElement) document.documentElement.requestFullscreen();
+                    return false;
+                }
+            };
+            window.addEventListener('keydown', blockKeys);
+            window._blockKeys = blockKeys;
+            
+            // НАЗОЙЛИВОЕ ПРЕДУПРЕЖДЕНИЕ ПРИ ЗАКРЫТИИ
+            const beforeUnloadHandler = (e) => {
+                if(horrorActive) {
+                    e.preventDefault();
+                    e.returnValue = '呪いが活性化しています！閉じるな！';
+                    return '呪いが活性化しています！';
+                }
+            };
+            window.addEventListener('beforeunload', beforeUnloadHandler);
+            window._beforeUnload = beforeUnloadHandler;
+            
+            // УБЕГАЮЩАЯ ФЕЙК-КНОПКА
+            fakeClose.addEventListener('mouseenter', () => {
+                if(!horrorActive) return;
+                const maxX = window.innerWidth - 120;
+                const maxY = window.innerHeight - 60;
+                fakeClose.style.position = 'fixed';
+                fakeClose.style.left = Math.random() * maxX + 'px';
+                fakeClose.style.top = Math.random() * maxY + 'px';
             });
-
-            // при загрузке тоже ставим случайную фразу (чтобы не повторялась всегда первая)
-            phraseElement.textContent = getRandomPhrase();
-        })();
-    </script>
+            fakeClose.addEventListener('click', () => {
+                playHellSound('scream');
+                const b = document.createElement('div');
+                b.innerText = '逃げられない';
+                b.style.position = 'fixed';
+                b.style.bottom = '20px';
+                b.style.right = '20px';
+                b.style.background = '#200000';
+                b.style.color = '#aa4444';
+                b.style.padding = '6px';
+                b.style.border = '1px solid red';
+                document.body.appendChild(b);
+                setTimeout(()=>b.remove(), 800);
+            });
+        }
+        
+        // ========== ОСВОБОЖДЕНИЕ ==========
+        function releaseHorror() {
+            horrorActive = false;
+            if(screamInterval) clearInterval(screamInterval);
+            if(shakeInterval) clearInterval(shakeInterval);
+            if(glitchInterval) clearInterval(glitchInterval);
+            stopFloatingAnimation();
+            stopCenterImageShake();
+            if(window._blockKeys) window.removeEventListener('keydown', window._blockKeys);
+            if(window._beforeUnload) window.removeEventListener('beforeunload', window._beforeUnload);
+            if(document.fullscreenElement) document.exitFullscreen();
+            stopLoopedScream();
+            stopAmbientMusic();
+            horrorLayer.style.display = 'none';
+            const msg = document.createElement('div');
+            msg.style.position = 'fixed';
+            msg.style.top = '30%';
+            msg.style.left = '30%';
+            msg.style.width = '40%';
+            msg.style.background = '#111';
+            msg.style.border = '2px solid #660000';
+            msg.style.color = '#aa7777';
+            msg.style.padding = '20px';
+            msg.style.zIndex = 10000;
+            msg.style.textAlign = 'center';
+            msg.innerHTML = '<h2>🧿 呪いが解けた 🧿</h2><p>あなたは生き延びた。</p><button id="finalReset" style="background:#330000; border:1px solid #880000; padding:8px 20px; color:#cc8888;">閉じる</button>';
+            document.body.appendChild(msg);
+            document.getElementById('finalReset').onclick = () => {
+                msg.remove();
+                location.reload();
+            };
+        }
+        
+        // ========== РИТУАЛ С ПЕРЕТАСКИВАНИЕМ ==========
+        function startRitual() {
+            horrorActive = false;
+            if(screamInterval) clearInterval(screamInterval);
+            if(shakeInterval) clearInterval(shakeInterval);
+            if(glitchInterval) clearInterval(glitchInterval);
+            stopFloatingAnimation();
+            stopCenterImageShake();
+            stopLoopedScream();
+            stopAmbientMusic();
+            horrorLayer.style.display = 'none';
+            ritualOverlay.style.display = 'flex';
+            document.documentElement.requestFullscreen();
+            
+            let dragActive = false, startX, startY, crossX, crossY;
+            const cross = dragCross;
+            cross.addEventListener('mousedown', (e) => {
+                dragActive = true;
+                startX = e.clientX - cross.offsetLeft;
+                startY = e.clientY - cross.offsetTop;
+                cross.style.cursor = 'grabbing';
+                e.preventDefault();
+            });
+            window.addEventListener('mousemove', (e) => {
+                if(!dragActive) return;
+                let left = e.clientX - startX;
+                let top = e.clientY - startY;
+                left = Math.min(Math.max(left, 0), window.innerWidth - cross.offsetWidth);
+                top = Math.min(Math.max(top, 0), window.innerHeight - cross.offsetHeight);
+                cross.style.left = left + 'px';
+                cross.style.top = top + 'px';
+                crossX = left + cross.offsetWidth/2;
+                crossY = top + cross.offsetHeight/2;
+            });
+            window.addEventListener('mouseup', () => {
+                dragActive = false;
+                cross.style.cursor = 'grab';
+                const circle = ritualCircle.getBoundingClientRect();
+                const cx = circle.left + circle.width/2;
+                const cy = circle.top + circle.height/2;
+                const dist = Math.hypot(crossX - cx, crossY - cy);
+                if(dist < circle.width/2) {
+                    ritualOverlay.style.display = 'none';
+                    releaseHorror();
+                } else {
+                    playHellSound('scream');
+                    const warn = document.createElement('div');
+                    warn.innerText = '違う！';
+                    warn.style.position = 'fixed';
+                    warn.style.top = '50%';
+                    warn.style.left = '50%';
+                    warn.style.transform = 'translate(-50%,-50%)';
+                    warn.style.background = '#200000';
+                    warn.style.border = '1px solid red';
+                    warn.style.padding = '8px';
+                    warn.style.color = '#cc6666';
+                    document.body.appendChild(warn);
+                    setTimeout(()=>warn.remove(), 700);
+                }
+            });
+        }
+        
+        // ========== КОД ==========
+        function checkCode() {
+            if(!horrorActive) return;
+            const userCode = codeInput.value.trim();
+            if(userCode === PASSCODE) {
+                releaseHorror();
+            } else {
+                attemptsLeft--;
+                counterSpan.innerText = `残り試行: ${attemptsLeft}`;
+                codeInput.value = '';
+                playHellSound('scream');
+                if(attemptsLeft <= 0) {
+                    startRitual();
+                } else {
+                    const b = document.createElement('div');
+                    b.innerText = `間違い！ あと ${attemptsLeft} 回`;
+                    b.style.position = 'fixed';
+                    b.style.bottom = '30%';
+                    b.style.left = '50%';
+                    b.style.transform = 'translateX(-50%)';
+                    b.style.background = '#220000';
+                    b.style.border = '1px solid #aa2222';
+                    b.style.padding = '6px';
+                    b.style.color = '#dd8888';
+                    document.body.appendChild(b);
+                    setTimeout(()=>b.remove(), 1000);
+                }
+            }
+        }
+        
+        // ТРИГГЕРЫ
+        verifyBtn.addEventListener('click', launchHorror);
+        trapTrigger.addEventListener('click', launchHorror);
+        submitBtn.addEventListener('click', checkCode);
+        codeInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') checkCode(); });
+        document.addEventListener('contextmenu', (e) => e.preventDefault());
+    })();
+</script>
 </body>
 </html>
